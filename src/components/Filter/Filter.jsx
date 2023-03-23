@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFilter } from 'redux/actions';
 import { getFilterValue } from 'redux/selectors';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { FilterWrapper, FilterInput } from './Filter.styled';
 
 export function Filter() {
@@ -21,7 +21,6 @@ export function Filter() {
   );
 }
 
-// Filter.propTypes = {
-//   // value: PropTypes.string.isRequired,
-//   // onChange: PropTypes.func.isRequired,
-// };
+Filter.propTypes = {
+  filter: PropTypes.string,
+};
