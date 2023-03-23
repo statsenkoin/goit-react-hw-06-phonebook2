@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/actions';
 import { getContacts } from 'redux/selectors';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Formik, Field } from 'formik';
 import { nanoid } from 'nanoid';
 import * as Yup from 'yup';
@@ -66,4 +66,12 @@ export function FormikForm() {
   );
 }
 
-// FormikForm.propTypes = { onSubmit: PropTypes.func.isRequired };
+FormikForm.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+};
