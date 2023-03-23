@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { addTestData } from 'redux/actions';
+import PropTypes from 'prop-types';
 import { initialContacts } from 'dataBase';
 import { localStorageService as storage } from 'services';
 import { Filter, ContactList, FormikForm } from 'components';
@@ -54,3 +55,13 @@ export function App() {
     </Layout>
   );
 }
+
+App.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+};
