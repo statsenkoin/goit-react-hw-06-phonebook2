@@ -18,10 +18,10 @@ export const deleteContact = contactId => {
   };
 };
 
-export const setFilter = input => {
+export const setFilter = value => {
   return {
     type: 'filter/setFilter',
-    payload: input,
+    payload: value,
   };
 };
 
