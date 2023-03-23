@@ -1,39 +1,36 @@
-const initialState = {
-  contacts: [],
-  filter: {
-    input: '',
-  },
-};
+const contactsInitialState = [];
 
-export const rootReducer = (state = initialState, action) => {
+const contactsReducer = (state = contactsInitialState, action) => {
   switch (action.type) {
     case 'contacts/addContact':
-      return {
-        ...state,
-        contacts: [...state.contacts, action.payload],
-      };
+      return [...state, action.payload];
 
     case 'contacts/deleteContact':
-      return {
-        ...state,
-        contacts: state.contacts.filter(
-          contact => contact.id !== action.payload
-        ),
-      };
-
-    case 'filter/setFilter':
-      return {
-        ...state,
-        filter: { ...state.filter, input: action.payload },
-      };
+      return state.filter(contact => contact.id !== action.payload);
 
     case 'contacts/addTestData':
-      return {
-        ...state,
-        contacts: [...state.contacts, ...action.payload],
-      };
+      return [...state, ...action.payload];
 
     default:
       return state;
   }
+};
+
+const filterInitialState = '';
+
+const filterReducer = (state = filterInitialState, action) => {
+  switch (action.type) {
+    case 'filter/setFilter':
+      return action.payload;
+
+    default:
+      return state;
+  }
+};
+
+export const rootReducer = (state = {}, action) => {
+  return {
+    contacts: contactsReducer(state.contacts, action),
+    filter: filterReducer(state.filter, action),
+  };
 };
