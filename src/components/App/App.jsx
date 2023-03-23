@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { addTestData } from 'redux/contactsSlice';
 import PropTypes from 'prop-types';
 import { initialContacts } from 'dataBase';
-import { localStorageService as storage } from 'services';
 import { Filter, ContactList, FormikForm } from 'components';
 import {
   Layout,
@@ -17,11 +16,8 @@ import {
 export function App() {
   const contacts = useSelector(getContacts);
 
-  useEffect(() => storage.save('contacts', contacts), [contacts]);
-
   const dispatch = useDispatch();
   const addTestContactsList = () => {
-    // storage.add('contacts', initialContacts);
     /**
      * initialContacts as test data may be added several times
      * It checks items and prevents adding if some of initialContacts
