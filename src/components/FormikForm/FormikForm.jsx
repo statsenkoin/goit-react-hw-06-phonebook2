@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/actions';
+import { addContact } from 'redux/contactsSlice';
 import { getContacts } from 'redux/selectors';
 import PropTypes from 'prop-types';
 import { Formik, Field } from 'formik';
-import { nanoid } from 'nanoid';
+import { nanoid } from '@reduxjs/toolkit';
 import * as Yup from 'yup';
 import 'yup-phone-lite';
 import {
