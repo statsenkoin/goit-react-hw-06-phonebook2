@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
-import { addTestData } from 'redux/actions';
+import { addTestData } from 'redux/contactsSlice';
 import PropTypes from 'prop-types';
 import { initialContacts } from 'dataBase';
 import { localStorageService as storage } from 'services';
