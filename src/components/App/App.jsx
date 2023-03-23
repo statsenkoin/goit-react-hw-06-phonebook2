@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
-import { localStorageService as storage } from 'services';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+import { addTestData } from 'redux/actions';
 import { initialContacts } from 'dataBase';
+import { localStorageService as storage } from 'services';
 import { Filter, ContactList, FormikForm } from 'components';
 import {
   Layout,
@@ -11,35 +14,13 @@ import {
 } from './App.styled';
 
 export function App() {
-  const [contacts, setContacts] = useState(storage.load('contacts') ?? []);
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(getContacts);
 
   useEffect(() => storage.save('contacts', contacts), [contacts]);
 
-  const addContact = newContact => {
-    const { name: newName } = newContact;
-    let isContactExists = contacts.some(({ name }) => name === newName);
-    if (isContactExists) {
-      return alert(`${newName} is already in contacts!`);
-    }
-    setContacts(contacts => [newContact, ...contacts]);
-  };
-
-  const deleteContact = contactId =>
-    setContacts(() => contacts.filter(contact => contact.id !== contactId));
-
-  const onFilter = e => setFilter(() => e.target.value);
-
-  const filterContactsByName = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(normalizedFilter)
-    );
-  };
-
-  const addTestData = () => {
+  const dispatch = useDispatch();
+  const addTestContactsList = () => {
     // storage.add('contacts', initialContacts);
-
     /**
      * initialContacts as test data may be added several times
      * It checks items and prevents adding if some of initialContacts
@@ -51,24 +32,21 @@ export function App() {
           .reduce((acc, { id: prevId }) => [...acc, prevId], [])
           .includes(newId)
     );
-    setContacts(contacts => [...contacts, ...newTestContactsList]);
+    dispatch(addTestData(newTestContactsList));
   };
 
   return (
     <Layout>
-      <button type="button" onClick={addTestData}>
+      <button type="button" onClick={addTestContactsList}>
         Add test data
       </button>
       <Title>Phonebook</Title>
-      <FormikForm onSubmit={addContact}></FormikForm>
+      <FormikForm></FormikForm>
       <ContactsTitle>Contacts</ContactsTitle>
       {contacts.length ? (
         <ContactListBox>
-          <Filter value={filter} onChange={onFilter}></Filter>
-          <ContactList
-            contacts={filterContactsByName()}
-            onClick={deleteContact}
-          ></ContactList>
+          <Filter></Filter>
+          <ContactList></ContactList>
         </ContactListBox>
       ) : (
         <Notification>No any contacts in phonebook</Notification>
