@@ -42,8 +42,8 @@ export function App() {
       <ContactsTitle>Contacts</ContactsTitle>
       {contacts.length ? (
         <ContactListBox>
-          <Filter></Filter>
-          <ContactList></ContactList>
+          <Filter />
+          <ContactList />
         </ContactListBox>
       ) : (
         <Notification>No any contacts in phonebook</Notification>
